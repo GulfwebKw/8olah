@@ -2,46 +2,61 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 
-class User extends Authenticatable
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $username
+ * @property string $password
+ * @property float $commission_per_work
+ * @property string $bank_name
+ * @property string $bank_number
+ * @property string $bank_iban
+ * @property boolean $is_admin
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ */
+class User extends Authenticatable implements FilamentUser
 {
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
-        'email',
+        'username',
         'password',
+        'commission_per_work',
+        'bank_name',
+        'bank_number',
+        'bank_iban',
+        'is_admin',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'commission_per_work' => 'float',
+            'is_admin' => 'boolean',
         ];
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        try {
+            return $panel->getId() == "admin" ? $this->is_admin : !$this->is_admin;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }
