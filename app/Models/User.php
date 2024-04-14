@@ -19,6 +19,7 @@ use Illuminate\Support\Carbon;
  * @property string $bank_number
  * @property string $bank_iban
  * @property boolean $is_admin
+ * @property boolean $is_active
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
@@ -35,6 +36,7 @@ class User extends Authenticatable implements FilamentUser
         'bank_number',
         'bank_iban',
         'is_admin',
+        'is_active',
     ];
 
     protected $hidden = [
@@ -48,13 +50,14 @@ class User extends Authenticatable implements FilamentUser
             'password' => 'hashed',
             'commission_per_work' => 'float',
             'is_admin' => 'boolean',
+            'is_active' => 'boolean',
         ];
     }
 
     public function canAccessPanel(Panel $panel): bool
     {
         try {
-            return $panel->getId() == "admin" ? $this->is_admin : !$this->is_admin;
+            return ($panel->getId() == "admin" ? $this->is_admin : !$this->is_admin) and  $this->is_active;
         } catch (\Exception $e) {
             return false;
         }

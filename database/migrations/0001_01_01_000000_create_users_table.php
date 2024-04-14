@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('bank_number')->nullable();
             $table->string('bank_iban')->nullable();
             $table->boolean('is_admin')->default(0);
+            $table->boolean('is_active')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });
