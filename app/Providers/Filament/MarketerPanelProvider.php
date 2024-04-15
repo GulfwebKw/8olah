@@ -2,6 +2,9 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Marketer\Resources\IntroduceResource\Widgets\BlogPostsOverview;
+use App\Filament\Marketer\Resources\IntroduceResource\Widgets\LastIntroduceTable;
+use App\Filament\Marketer\Resources\IntroduceResource\Widgets\ShortLinkButtons;
 use App\Filament\Pages\LoginAdmin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -19,28 +22,29 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-class AdminPanelProvider extends PanelProvider
+class MarketerPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
-            ->id('admin')
-            ->path('admin')
+            ->id('marketer')
+            ->path('')
             ->login(LoginAdmin::class)
-            ->authGuard('admin')
+            ->authGuard('marketer')
             ->colors([
                 'primary' => Color::Amber,
             ])
-            ->discoverResources(in: app_path('Filament/Resources/Panel'), for: 'App\\Filament\\Resources\\Panel')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->discoverResources(in: app_path('Filament/Marketer/Resources'), for: 'App\\Filament\\Marketer\\Resources')
+            ->discoverPages(in: app_path('Filament/Marketer/Pages'), for: 'App\\Filament\\Marketer\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Marketer/Widgets'), for: 'App\\Filament\\Marketer\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
 //                Widgets\FilamentInfoWidget::class,
+                ShortLinkButtons::class,
+                LastIntroduceTable::class
             ])
             ->middleware([
                 EncryptCookies::class,

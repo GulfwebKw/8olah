@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\HtmlString;
+use Webbingbrasil\FilamentAdvancedFilter\Filters\DateFilter;
+use Webbingbrasil\FilamentAdvancedFilter\Filters\TextFilter;
 
 class IntroduceResource extends Resource
 {
@@ -40,10 +42,14 @@ class IntroduceResource extends Resource
             ->schema([
                 Forms\Components\Section::make()
                     ->schema([
-                        Forms\Components\Placeholder::make('customer_name'),
-                        Forms\Components\Placeholder::make('customer_phone'),
-                        Forms\Components\Placeholder::make('number_works'),
-                        Forms\Components\Placeholder::make('number_works_api'),
+                        Forms\Components\Placeholder::make('customer_name')
+                            ->content(fn ($record) => $record->customer_name),
+                        Forms\Components\Placeholder::make('customer_phone')
+                            ->content(fn ($record) => $record->customer_phone),
+                        Forms\Components\Placeholder::make('number_works')
+                            ->content(fn ($record) => $record->number_works),
+                        Forms\Components\Placeholder::make('number_works_api')
+                            ->content(fn ($record) => $record->number_works_api ?? 'Not Set Yet!'),
                         Forms\Components\TextInput::make('number_works_approved')
                             ->numeric()
                             ->nullable(),
@@ -55,11 +61,14 @@ class IntroduceResource extends Resource
                             ->searchable()
                             ->preload()
                             ->required(),
-                        Forms\Components\Placeholder::make('description'),
+                        Forms\Components\Placeholder::make('description')
+                            ->content(fn ($record) => new HtmlString(nl2br($record->description))),
                         Forms\Components\Textarea::make('admin_description')
                             ->nullable(),
-                        Forms\Components\Placeholder::make('created_at'),
-                        Forms\Components\Placeholder::make('updated_at'),
+                        Forms\Components\Placeholder::make('created_at')
+                            ->content(fn ($record) => $record->created_at),
+                        Forms\Components\Placeholder::make('updated_at')
+                            ->content(fn ($record) => $record->updated_at),
                     ])->columns(2),
             ]);
     }
@@ -89,8 +98,11 @@ class IntroduceResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                //
-            ])
+                DateFilter::make('created_at'),
+                TextFilter::make('customer_name'),
+                TextFilter::make('customer_phone'),
+
+            ], layout: Tables\Enums\FiltersLayout::AboveContentCollapsible)
             ->actions([
 //                Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
@@ -118,4 +130,16 @@ class IntroduceResource extends Resource
             'view' => Pages\ViewIntroduce::route('/{record}'),
         ];
     }
+
+    public static function getNavigationBadge(): ?string
+    {
+        /** @var class-string<Model> $modelClass */
+        $modelClass = static::$model;
+
+        return (string) $modelClass::query()
+            ->whereNull('number_works_approved')
+            ->where('created_at', '>=' , now()->subDays(2)->startOfDay())
+            ->count();
+    }
+
 }
