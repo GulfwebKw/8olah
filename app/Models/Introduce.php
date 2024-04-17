@@ -13,6 +13,8 @@ use Illuminate\Support\Carbon;
  * @property User $user
  * @property int $admin_id
  * @property User $admin
+ * @property int $checkout_id
+ * @property Checkout $checkout
  * @property string $customer_name
  * @property string $customer_phone
  * @property string $description
@@ -21,8 +23,6 @@ use Illuminate\Support\Carbon;
  * @property int $number_works
  * @property int $number_works_api
  * @property int $number_works_approved
- * @property string $bank_number
- * @property string $bank_iban
  * @property boolean $is_earned
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -34,6 +34,7 @@ class Introduce extends Model
     protected $fillable = [
         'user_id',
         'admin_id',
+        'checkout_id',
         'customer_name',
         'customer_phone',
         'description',
@@ -48,6 +49,7 @@ class Introduce extends Model
     protected $casts = [
         'user_id' => 'int',
         'admin_id' => 'int',
+        'checkout_id' => 'int',
         'number_works' => 'int',
         'number_works_api' => 'int',
         'number_works_approved' => 'int',
@@ -57,11 +59,16 @@ class Introduce extends Model
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function admin(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class , 'admin_id');
+    }
+
+    public function checkout(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Checkout::class , 'checkout_id' , 'id');
     }
 }
