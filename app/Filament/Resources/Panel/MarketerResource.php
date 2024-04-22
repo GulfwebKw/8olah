@@ -28,12 +28,12 @@ class MarketerResource extends Resource
 
     public static function getGloballySearchableAttributes(): array
     {
-        return ['name' , 'username'];
+        return ['name' , 'username' , 'company_name'];
     }
 
     public static function getGlobalSearchResultTitle(Model $record): string|Htmlable
     {
-        return new HtmlString($record->name . '<small> ('.$record->username.')</small>');
+        return new HtmlString($record->company_name . '<small> ('.$record->name.')</small>');
     }
 
     public static function form(Form $form): Form
@@ -45,6 +45,10 @@ class MarketerResource extends Resource
                         Forms\Components\TextInput::make('name')
                             ->maxLength(255)
                             ->required(),
+                        Forms\Components\TextInput::make('company_name')
+                            ->label(__('Shop Name'))
+                            ->maxLength(255)
+                            ->required(),
                         Forms\Components\TextInput::make('username')
                             ->maxLength(255)
                             ->unique(User::class , 'username' , null,true )
@@ -52,6 +56,9 @@ class MarketerResource extends Resource
                         Forms\Components\TextInput::make('commission_per_work')
                             ->numeric()
                             ->required(),
+                        Forms\Components\FileUpload::make('avatar')
+                            ->image()
+                            ->imageEditor(),
                         Forms\Components\Checkbox::make('is_active')
                             ->inline(),
                     ])->columns(2),
@@ -90,7 +97,8 @@ class MarketerResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('username')
+                Tables\Columns\TextColumn::make('company_name')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('commission_per_work')
                     ->sortable(),
