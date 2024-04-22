@@ -16,4 +16,11 @@ class ViewIntroduce extends ViewRecord
             Actions\EditAction::make(),
         ];
     }
+
+    protected function getFooterWidgets(): array
+    {
+        return [
+            IntroduceResource\Widgets\APIOverview::class
+        ];
+    }
 }
