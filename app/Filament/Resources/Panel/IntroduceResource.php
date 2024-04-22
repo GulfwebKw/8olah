@@ -48,8 +48,8 @@ class IntroduceResource extends Resource
                             ->content(fn ($record) => $record->customer_phone),
                         Forms\Components\Placeholder::make('number_works')
                             ->content(fn ($record) => $record->number_works),
-                        Forms\Components\Placeholder::make('number_works_api')
-                            ->content(fn ($record) => $record->number_works_api ?? 'Not Set Yet!'),
+//                        Forms\Components\Placeholder::make('number_works_api')
+//                            ->content(fn ($record) => $record->number_works_api ?? 'Not Set Yet!'),
                         Forms\Components\TextInput::make('number_works_approved')
                             ->numeric()
                             ->nullable(),
