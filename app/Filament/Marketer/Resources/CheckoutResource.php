@@ -43,6 +43,8 @@ class CheckoutResource extends Resource
                             ->content(fn ($record,Get $get) => $record?->commission),
                         Forms\Components\Placeholder::make('tracking_number')
                             ->content(fn ($record,Get $get) => $record?->tracking_number),
+                        Forms\Components\Placeholder::make('checkout_type')
+                            ->content(fn ($record,Get $get) => $record?->checkout_type?->title),
                         Forms\Components\Placeholder::make('created_at')
                             ->content(fn ($record,Get $get) => $record?->created_at),
                         Forms\Components\Placeholder::make('created_at')

@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
  * @property int $user_id
  * @property User $user
  * @property int $admin_id
+ * @property int $checkout_type_id
  * @property User $admin
  * @property Collection<Introduce> $Introduces
  * @property string $bank_name
@@ -30,6 +31,7 @@ class Checkout extends Model
     protected $fillable = [
         'user_id',
         'admin_id',
+        'checkout_type_id',
         'bank_name',
         'bank_number',
         'bank_iban',
@@ -41,6 +43,7 @@ class Checkout extends Model
     protected $casts = [
         'user_id' => 'int',
         'admin_id' => 'int',
+        'checkout_type_id' => 'int',
         'commission' => 'float',
     ];
 
@@ -57,5 +60,10 @@ class Checkout extends Model
     public function Introduces(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Introduce::class ,'checkout_id' ,'id');
+    }
+
+    public function checkout_type(): \Illuminate\Database\Eloquent\Relations\belongsTo
+    {
+        return $this->belongsTo(CheckoutType::class ,'checkout_type_id' );
     }
 }

@@ -51,6 +51,7 @@ class CheckoutResource extends Resource
                             ->relationship('user', 'name',
                                 modifyQueryUsing: fn (Builder $query) => $query->where('is_admin' , false)->orderBy('name'),
                             )
+                            ->getOptionLabelFromRecordUsing(fn (Model $record): ?string => $record?->company_name . ' ('.$record?->name.')')
                             ->searchable()
                             ->preload()
                             ->live()
@@ -90,6 +91,13 @@ class CheckoutResource extends Resource
                             ->required(),
                         Forms\Components\TextInput::make('commission')
                             ->numeric()
+                            ->required(),
+                        Forms\Components\Select::make('checkout_type_id')
+                            ->label('Type')
+                            ->relationship('checkout_type', 'title')
+                            ->searchable()
+                            ->preload()
+                            ->live()
                             ->required(),
                         Forms\Components\TextInput::make('tracking_number')
                             ->required(),
