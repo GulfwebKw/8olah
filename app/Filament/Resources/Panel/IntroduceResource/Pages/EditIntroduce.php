@@ -16,4 +16,11 @@ class EditIntroduce extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function getFooterWidgets(): array
+    {
+        return [
+            IntroduceResource\Widgets\APIOverview::class
+        ];
+    }
 }
