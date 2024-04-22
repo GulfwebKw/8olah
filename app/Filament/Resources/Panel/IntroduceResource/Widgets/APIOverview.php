@@ -7,6 +7,7 @@ use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\GuzzleException;
 use Webbingbrasil\FilamentAdvancedFilter\Filters\DateFilter;
 use Webbingbrasil\FilamentAdvancedFilter\Filters\TextFilter;
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +21,7 @@ class APIOverview extends BaseWidget
             $client = new Client();
             $res = $client->request('POST', 'https://8olah.com/client/jobs.php', [
                 'form_params' => [
-                    'mobile' => $this->record->customer_phone
+                    'mobile' => $this->record?->customer_phone
                 ]
             ]);
             if ($res->getStatusCode() == 200) {
@@ -30,7 +31,7 @@ class APIOverview extends BaseWidget
                     return $data['data']['jobs'];
                 }
             }
-        } catch (ClientException $e) {}
+        } catch (ClientException|GuzzleException $e) {}
         return [];
     }
     public function table(Table $table): Table
