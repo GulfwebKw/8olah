@@ -22,6 +22,10 @@ class IntroduceResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-m-shopping-bag';
     protected static ?int $navigationSort = 1;
+    public static function getNavigationLabel(): string
+    {
+        return __('Introduces');
+    }
 
     public static function form(Form $form): Form
     {
@@ -30,16 +34,22 @@ class IntroduceResource extends Resource
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\TextInput::make('customer_name')
+                            ->label(__('customer_name'))
                             ->required(),
                         Forms\Components\TextInput::make('customer_phone')
+                            ->label(__('customer_phone'))
                             ->required(),
                         Forms\Components\TextInput::make('number_works')
+                            ->label(__('number_works'))
                             ->required(),
                         Forms\Components\Placeholder::make('number_works_approved')
+                            ->label(__('number_works_approved'))
                             ->content(fn ($record) => $record?->number_works_approved ?? 'Not Set Yet!')
                             ->hidden(fn($record) => is_null($record)),
-                        Forms\Components\Textarea::make('description'),
+                        Forms\Components\Textarea::make('description')
+                            ->label(__('description')),
                         Forms\Components\Placeholder::make('admin_description')
+                            ->label(__('admin_description'))
                             ->content(fn ($record) => new HtmlString(nl2br($record?->admin_description)))
                             ->hidden(fn($record) => is_null($record?->admin_description)),
                     ])->columns(2),
@@ -51,18 +61,24 @@ class IntroduceResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')
+                    ->label(__('id'))
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('customer_name')
+                    ->label(__('customer_name'))
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('customer_phone')
+                    ->label(__('customer_phone'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('number_works')
+                    ->label(__('number_works'))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('number_works_approved')
+                    ->label(__('number_works_approved'))
                     ->sortable(),
                 Tables\Columns\BooleanColumn::make('is_earned')
+                    ->label(__('is_earned'))
                     ->label('settled')
                     ->sortable(),
             ])
