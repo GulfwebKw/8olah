@@ -34,7 +34,7 @@ class IntroduceApi extends Model
             if ($res->getStatusCode() == 200) {
                 $result = $res->getBody()->getContents();
                 $data = json_decode($result, true);
-                if ($data['status'] == 200) {
+                if ($data['status'] == 200 and  isset($data['data']) and isset($data['data']['jobs'])) {
                     return $data['data']['jobs'];
                 }
             }
