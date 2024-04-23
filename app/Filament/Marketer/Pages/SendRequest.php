@@ -2,6 +2,7 @@
 
 namespace App\Filament\Marketer\Pages;
 
+use App\Jobs\SendInboxEmailJob;
 use App\Models\Inbox;
 use App\Models\User;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -49,7 +50,7 @@ class SendRequest extends Page implements HasForms
     public function SendRequest(): void
     {
         $data = $this->form->getState();
-        Inbox::query()->create([
+        $inbox = Inbox::query()->create([
             'user_id' => auth()->id(),
             'message' => $data['content'],
             'seen' => 0,
@@ -59,6 +60,7 @@ class SendRequest extends Page implements HasForms
             ->title(__('Request Sent Successfully.'))
             ->success()
             ->send();
+        dispatch(new SendInboxEmailJob($inbox->id));
     }
 
     public function form(Form $form): Form

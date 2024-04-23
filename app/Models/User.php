@@ -17,6 +17,7 @@ use Illuminate\Support\Carbon;
  * @property string $company_name
  * @property string $avatar
  * @property string $username
+ * @property string $email
  * @property string $password
  * @property float $commission_per_work
  * @property string $bank_name
@@ -36,6 +37,7 @@ class User extends Authenticatable implements FilamentUser,HasAvatar,HasName
         'company_name',
         'avatar',
         'username',
+        'email',
         'password',
         'commission_per_work',
         'bank_name',

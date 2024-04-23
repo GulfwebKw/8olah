@@ -46,6 +46,10 @@ class AdminResource extends Resource
                             ->maxLength(255)
                             ->unique(User::class , 'username' , null,true )
                             ->required(),
+                        Forms\Components\TextInput::make('email')
+                            ->maxLength(255)
+                            ->unique(User::class , 'email' , null,true )
+                            ->required(),
                         Forms\Components\Checkbox::make('is_active')
                             ->inline(),
                     ])->columns(2),
