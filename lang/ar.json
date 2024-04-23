@@ -1,4 +1,21 @@
 {
-    "Introduces" : "يقدم",
-    "customer_name" : "اسم العميل"
+    "Introduce" : "Introduce",
+    "Introduces" : "Introduces",
+    "customer_name" : "customer_name",
+    "customer_phone" : "customer_phone",
+    "number_works" : "number_works",
+    "number_works_approved" : "number_works_approved",
+    "description" : "description",
+    "admin_description" : "admin_description",
+    "id" : "id",
+    "settled" : "settled",
+    "Create New Introduce" : "Create New Introduce",
+    "bank_name" : "bank_name",
+    "bank_number" : "bank_number",
+    "bank_iban" : "bank_iban",
+    "commission" : "commission",
+    "tracking_number" : "tracking_number",
+    "checkout_type" : "checkout_type",
+    "created_at" : "created_at",
+    "Attachment" : "Attachment"
 }

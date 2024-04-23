@@ -6,7 +6,7 @@
                     <x-heroicon-c-plus-circle class="h-11"/>
                 </div>
                 <div class="flex-1">
-                    Create New Introduce
+                    {{ __('Create New Introduce') }}
                 </div>
             </div>
         </a>

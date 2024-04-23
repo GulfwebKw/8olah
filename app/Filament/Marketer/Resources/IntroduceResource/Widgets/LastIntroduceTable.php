@@ -21,19 +21,24 @@ class LastIntroduceTable extends BaseWidget
             ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('id')
+                    ->label(__('id'))
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('customer_name')
+                    ->label(__('customer_name'))
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('customer_phone')
+                    ->label(__('customer_phone'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('number_works')
+                    ->label(__('number_works'))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('number_works_approved')
+                    ->label(__('number_works_approved'))
                     ->sortable(),
                 Tables\Columns\BooleanColumn::make('is_earned')
-                    ->label('settled')
+                    ->label(__('settled'))
                     ->sortable(),
             ]);
     }

@@ -22,7 +22,11 @@ class IntroduceResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-m-shopping-bag';
     protected static ?int $navigationSort = 1;
-    public static function getNavigationLabel(): string
+    public static function getLabel(): string
+    {
+        return __('Introduce');
+    }
+    public static function getPluralLabel(): string
     {
         return __('Introduces');
     }
@@ -78,8 +82,7 @@ class IntroduceResource extends Resource
                     ->label(__('number_works_approved'))
                     ->sortable(),
                 Tables\Columns\BooleanColumn::make('is_earned')
-                    ->label(__('is_earned'))
-                    ->label('settled')
+                    ->label(__('settled'))
                     ->sortable(),
             ])
             ->filters([

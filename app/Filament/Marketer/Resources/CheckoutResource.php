@@ -34,26 +34,32 @@ class CheckoutResource extends Resource
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Placeholder::make('bank_name')
+                            ->label(__('bank_name'))
                             ->content(fn ($record,Get $get) => $record?->bank_name),
                         Forms\Components\Placeholder::make('bank_number')
+                            ->label(__('bank_number'))
                             ->content(fn ($record,Get $get) => $record?->bank_number),
                         Forms\Components\Placeholder::make('bank_iban')
+                            ->label(__('bank_iban'))
                             ->content(fn ($record,Get $get) => $record?->bank_iban),
                         Forms\Components\Placeholder::make('commission')
+                            ->label(__('commission'))
                             ->content(fn ($record,Get $get) => $record?->commission),
                         Forms\Components\Placeholder::make('tracking_number')
+                            ->label(__('tracking_number'))
                             ->content(fn ($record,Get $get) => $record?->tracking_number),
                         Forms\Components\Placeholder::make('checkout_type')
+                            ->label(__('checkout_type'))
                             ->content(fn ($record,Get $get) => $record?->checkout_type?->title),
                         Forms\Components\Placeholder::make('created_at')
+                            ->label(__('created_at'))
                             ->content(fn ($record,Get $get) => $record?->created_at),
-                        Forms\Components\Placeholder::make('created_at')
-                            ->content(fn ($record) => $record->created_at),
                     ])->columns(2),
                 Forms\Components\Section::make()
                     ->hidden(fn ($record,Get $get) => is_null($get('user_id')))
                     ->schema([
                         Forms\Components\Select::make('Introduces')
+                            ->label(__('Introduces'))
                             ->options(fn ($record , Get $get) => Introduce::query()
                                 ->when( $record?->id , function ($query) use($record) {
                                     $query->where(function ( $query) use($record) {
@@ -73,6 +79,7 @@ class CheckoutResource extends Resource
                             ->multiple()
                             ->preload(),
                         Forms\Components\FileUpload::make('picture')
+                            ->label(__('Attachment'))
                             ->image(),
                     ])->columns(2),
             ]);
@@ -83,17 +90,22 @@ class CheckoutResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')
+                    ->label(__('id'))
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('bank_name')
+                    ->label(__('bank_name'))
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tracking_number')
+                    ->label(__('tracking_number'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('commission')
+                    ->label(__('commission'))
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('created_at'))
                     ->sortable(),
             ])
             ->filters([
