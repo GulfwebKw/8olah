@@ -48,7 +48,7 @@ class IntroduceResource extends Resource
                             ->required(),
                         Forms\Components\Placeholder::make('number_works_approved')
                             ->label(__('number_works_approved'))
-                            ->content(fn ($record) => $record?->number_works_approved ?? 'Not Set Yet!')
+                            ->content(fn ($record) => $record?->number_works_approved ?? __('Not Set Yet!'))
                             ->hidden(fn($record) => is_null($record)),
                         Forms\Components\Textarea::make('description')
                             ->label(__('description')),

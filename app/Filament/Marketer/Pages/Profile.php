@@ -17,13 +17,23 @@ class Profile extends Page implements HasForms
     public ?array $data = [];
 
     //...
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
 
     protected static string $view = 'filament.marketer.pages.profile';
+    protected static ?int $navigationSort = 10;
 
     public static function shouldRegisterNavigation(): bool
     {
-        return false;
+        return true;
+    }
+    public static function getNavigationLabel(): string
+    {
+        return __('Profile');
+    }
+
+    public function getHeading(): string
+    {
+        return __('Profile');
     }
 
     public function mount(): void
@@ -37,6 +47,7 @@ class Profile extends Page implements HasForms
     {
         return [
             Actions\Action::make('Update')
+                ->label(__('Update'))
                 ->color('primary')
                 ->submit('Update'),
         ];
@@ -54,7 +65,7 @@ class Profile extends Page implements HasForms
         auth()->user()->update($data);
 
         Notification::make()
-            ->title('Profile updated!')
+            ->title(__('Profile updated!'))
             ->success()
             ->send();
     }
@@ -66,6 +77,7 @@ class Profile extends Page implements HasForms
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\TextInput::make('name')
+                            ->label(__('Name'))
                             ->maxLength(255)
                             ->required(),
                         Forms\Components\TextInput::make('company_name')
@@ -73,33 +85,40 @@ class Profile extends Page implements HasForms
                             ->maxLength(255)
                             ->required(),
                         Forms\Components\TextInput::make('username')
+                            ->label(__('Username'))
                             ->maxLength(255)
                             ->unique(User::class , 'username' , null,true )
                             ->required(),
                         Forms\Components\FileUpload::make('avatar')
+                            ->label(__('avatar'))
                             ->image()
                             ->imageEditor(),
                     ])->columns(2),
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\TextInput::make('bank_name')
+                            ->label(__('bank_name'))
                             ->maxLength(255)
                             ->required(),
                         Forms\Components\TextInput::make('bank_number')
+                            ->label(__('bank_number'))
                             ->maxLength(255)
                             ->required(),
                         Forms\Components\TextInput::make('bank_iban')
+                            ->label(__('bank_iban'))
                             ->maxLength(255)
                             ->required(),
                     ])->columns(2),
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\TextInput::make('password')
+                            ->label(__('Password'))
                             ->nullable()
                             ->confirmed()
-                            ->helperText("Set empty if you do not need change password!")
+                            ->helperText(__('Set empty if you do not need change password!'))
                             ->type('password'),
                         Forms\Components\TextInput::make('password_confirmation')
+                            ->label(__('Password Confirmation'))
                             ->nullable()
                             ->type('password'),
                     ])->columns(2),

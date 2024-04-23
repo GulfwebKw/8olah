@@ -119,7 +119,7 @@ class LoginAdmin extends SimplePage
     protected function getEmailFormComponent(): Component
     {
         return TextInput::make('username')
-            ->label(__('validation.attributes.username'))
+            ->label(__('username'))
             ->extraAttributes(['dir' => 'ltr'])
             ->required()
             ->autocomplete()

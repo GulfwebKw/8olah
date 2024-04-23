@@ -26,6 +26,14 @@ class CheckoutResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-m-currency-dollar';
     protected static ?int $navigationSort = 2;
+    public static function getLabel(): string
+    {
+        return __('Checkout');
+    }
+    public static function getPluralLabel(): string
+    {
+        return __('Checkouts');
+    }
 
     public static function form(Form $form): Form
     {
@@ -109,9 +117,12 @@ class CheckoutResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                DateFilter::make('created_at'),
-                TextFilter::make('tracking_number'),
-                NumberFilter::make('commission'),
+                DateFilter::make('created_at')
+                    ->label(__('created_at')),
+                TextFilter::make('tracking_number')
+                    ->label(__('tracking_number')),
+                NumberFilter::make('commission')
+                    ->label(__('commission')),
             ], layout: Tables\Enums\FiltersLayout::AboveContentCollapsible)
             ->actions([
                 Tables\Actions\ViewAction::make(),
