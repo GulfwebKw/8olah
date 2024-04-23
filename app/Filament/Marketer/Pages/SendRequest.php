@@ -2,6 +2,7 @@
 
 namespace App\Filament\Marketer\Pages;
 
+use App\Models\Inbox;
 use App\Models\User;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -11,6 +12,9 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Actions;
 
+/**
+ * @property \Filament\Forms\Form $form;
+ */
 class SendRequest extends Page implements HasForms
 {
     use InteractsWithForms;
@@ -35,24 +39,22 @@ class SendRequest extends Page implements HasForms
     protected function getFormActions(): array
     {
         return [
-            Actions\Action::make('Send')
+            Actions\Action::make('SendRequest')
                 ->label(__('Send'))
                 ->color('primary')
-                ->submit('Send'),
+                ->submit('SendRequest'),
         ];
     }
 
-    public function update()
+    public function SendRequest(): void
     {
         $data = $this->form->getState();
-        if ( $data['password'] ) {
-            $data['password'] = bcrypt($data['password']);
-            unset($data['password_confirmation']);
-        } else {
-            unset($data['password_confirmation'],$data['password']);
-        }
-        auth()->user()->update($data);
-
+        Inbox::query()->create([
+            'user_id' => auth()->id(),
+            'message' => $data['content'],
+            'seen' => 0,
+        ]);
+        $this->form->fill(['content' => '']);
         Notification::make()
             ->title(__('Request Sent Successfully.'))
             ->success()
@@ -65,8 +67,9 @@ class SendRequest extends Page implements HasForms
             ->schema([
                 Forms\Components\Section::make()
                     ->schema([
-                        Forms\Components\RichEditor::make('content')
+                        Forms\Components\Textarea::make('content')
                             ->label(__('Content'))
+                            ->rows(7)
                             ->required(),
                     ])->columns(1),
             ])

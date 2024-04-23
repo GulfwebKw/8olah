@@ -1,6 +1,6 @@
 
 <x-filament-panels::page>
-    <x-filament-panels::form wire:submit="send">
+    <x-filament-panels::form wire:submit="SendRequest">
         {{ $this->form }}
 
         <x-filament-panels::form.actions
