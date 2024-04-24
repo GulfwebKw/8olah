@@ -15,7 +15,8 @@ class ListIntroduces extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label(__('New Introduce')),
         ];
     }
     protected function getTableQuery(): ?Builder

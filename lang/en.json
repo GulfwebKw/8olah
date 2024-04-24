@@ -29,5 +29,6 @@
     "request_sent_successfully": "Request Sent Successfully.",
     "not_set_yet": "Not Set Yet!",
     "set_empty_if_no_change_password": "Set empty if you do not need change password!",
-    "username": "Username"
+    "username": "Username",
+    "New Introduce" : "Add new customer"
 }

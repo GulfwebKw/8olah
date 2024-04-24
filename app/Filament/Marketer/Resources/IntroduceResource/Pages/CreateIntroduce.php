@@ -12,6 +12,13 @@ class CreateIntroduce extends CreateRecord
     protected static string $resource = IntroduceResource::class;
 
 
+    /**
+     * @return string|null
+     */
+    public function getHeading(): \Illuminate\Contracts\Support\Htmlable|string
+    {
+        return __('New Introduce');
+    }
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['user_id'] = Filament::auth()->id();

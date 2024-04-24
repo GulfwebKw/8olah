@@ -30,10 +30,12 @@
     "Not Set Yet!" : "لم يتم تعيينه بعد!",
     "Set empty if you do not need change password!" : "اتركه فارغًا إذا لم ترغب في تغيير كلمة المرور!",
     "Username" : "اسم المستخدم",
+    "username" : "اسم المستخدم",
     "Name" : "اسم",
     "Shop Name" : "اسم المحل",
     "avatar" : "الصورة الرمزية",
     "Password" : "كلمة المرور",
     "Password Confirmation" : "تأكيد كلمة المرور",
-    "Last Introduce Table" : "آخر تقديم الجدول"
+    "Last Introduce Table" : "آخر تقديم الجدول",
+    "New Introduce" : "إضافة عميل جديد"
 }
