@@ -34,6 +34,14 @@ class InboxResource extends Resource
                     ->getOptionLabelFromRecordUsing(fn (Model $record): ?string => $record?->company_name . ' ('.$record?->name.')')
                     ->preload()
                     ->live(),
+                Forms\Components\Select::make('type_id')
+                    ->label('Type')
+                    ->relationship('type', 'title_en')
+                    ->preload()
+                    ->live(),
+                Forms\Components\TextInput::make('vodaphone')
+                    ->label('Vodaphone Number')
+                    ->nullable(),
                 Forms\Components\Textarea::make('message')
                     ->columnSpan(2)
                     ->rows(12),
@@ -48,6 +56,9 @@ class InboxResource extends Resource
                     ->label('Marketer')
                     ->sortable()
                     ->searchable(),
+                Tables\Columns\TextColumn::make('type.title_en')
+                    ->label('Type')
+                    ->sortable(),
                 Tables\Columns\BooleanColumn::make('seen')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')

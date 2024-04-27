@@ -101,6 +101,9 @@ class CheckoutResource extends Resource
                             ->required(),
                         Forms\Components\TextInput::make('tracking_number')
                             ->required(),
+                        Forms\Components\TextInput::make('vodaphone')
+                            ->label('Vodaphone Number')
+                            ->nullable(),
                         Forms\Components\FileUpload::make('picture')
                             ->image(),
                         Forms\Components\Placeholder::make('created_at')

@@ -56,6 +56,8 @@ class CheckoutResource extends Resource
                         Forms\Components\Placeholder::make('tracking_number')
                             ->label(__('tracking_number'))
                             ->content(fn ($record,Get $get) => $record?->tracking_number),
+                        Forms\Components\Placeholder::make('vodaphone')
+                            ->label('Vodaphone Number'),
                         Forms\Components\Placeholder::make('checkout_type')
                             ->label(__('checkout_type'))
                             ->content(fn ($record,Get $get) => $record?->checkout_type?->title),

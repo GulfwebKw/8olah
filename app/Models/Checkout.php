@@ -19,6 +19,7 @@ use Illuminate\Support\Collection;
  * @property string $bank_number
  * @property string $bank_iban
  * @property string $tracking_number
+ * @property string $vodaphone
  * @property float $commission
  * @property string $picture
  * @property Carbon $created_at
@@ -37,6 +38,7 @@ class Checkout extends Model
         'bank_iban',
         'commission',
         'tracking_number',
+        'vodaphone',
         'picture',
     ];
 
