@@ -3,6 +3,7 @@
 namespace App\Filament\Marketer\Pages;
 
 use App\Jobs\SendInboxEmailJob;
+use App\Models\CheckoutType;
 use App\Models\Inbox;
 use App\Models\RequestType;
 use App\Models\User;
@@ -51,19 +52,32 @@ class SendRequest extends Page implements HasForms
     public function SendRequest(): void
     {
         $data = $this->form->getState();
+        $user = auth()->user();
         $inbox = Inbox::query()->create([
             'user_id' => auth()->id(),
             'message' => $data['content'],
             'seen' => 0,
             'vodaphone' => optional($data)['vodaphone'] ?? '',
             'type_id' => $data['type_id'],
+            'checkOut_id' => $data['checkOut_id'],
         ]);
-        $this->form->fill(['content' => '' , 'type_id' => null , 'vodaphone' => null]);
+        if ( $user->vodaphone != $data['vodaphone']) {
+            $user->vodaphone = $data['vodaphone'];
+            $user->save();
+        }
+        $this->form->fill(['content' => '' , 'type_id' => null , 'vodaphone' => $user->vodaphone, 'checkOut_id' => null]);
         Notification::make()
             ->title(__('Request Sent Successfully.'))
             ->success()
             ->send();
         dispatch(new SendInboxEmailJob($inbox->id));
+    }
+
+    public function mount(): void
+    {
+        $this->form->fill([
+            'vodaphone' => auth()->user()->vodaphone
+        ]);
     }
 
     public function form(Form $form): Form
@@ -72,15 +86,21 @@ class SendRequest extends Page implements HasForms
             ->schema([
                 Forms\Components\Section::make()
                     ->schema([
+                        Forms\Components\Select::make('checkOut_id')
+                            ->label(__('checkout_type'))
+                            ->options(CheckoutType::query()
+                                ->orderBy('title')
+                                ->get()->pluck( 'title' , 'id')
+                            )->required(),
+                        Forms\Components\TextInput::make('vodaphone')
+                            ->label(__('Vodaphone Number'))
+                            ->nullable(),
                         Forms\Components\Select::make('type_id')
                             ->label(__('Type'))
                             ->options(RequestType::query()
                                 ->orderBy('title_'.app()->getLocale())
                                 ->get()->pluck( 'title_'.app()->getLocale() , 'id')
                             )->required(),
-                        Forms\Components\TextInput::make('vodaphone')
-                            ->label(__('Vodaphone Number'))
-                            ->nullable(),
                         Forms\Components\Textarea::make('content')
                             ->label(__('Content'))
                             ->rows(7)

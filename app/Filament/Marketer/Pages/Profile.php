@@ -108,6 +108,10 @@ class Profile extends Page implements HasForms
                             ->label(__('bank_iban'))
                             ->maxLength(255)
                             ->required(),
+                        Forms\Components\TextInput::make('vodaphone')
+                            ->label('Vodaphone Number')
+                            ->maxLength(255)
+                            ->required(),
                     ])->columns(2),
                 Forms\Components\Section::make()
                     ->schema([

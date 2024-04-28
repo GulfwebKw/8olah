@@ -64,8 +64,8 @@ class CheckoutTypeResource extends Resource
     {
         return [
             'index' => Pages\ListCheckoutTypes::route('/'),
-            'create' => Pages\CreateCheckoutType::route('/create'),
-            'edit' => Pages\EditCheckoutType::route('/{record}/edit'),
+//            'create' => Pages\CreateCheckoutType::route('/create'),
+//            'edit' => Pages\EditCheckoutType::route('/{record}/edit'),
         ];
     }
 }

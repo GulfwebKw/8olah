@@ -73,6 +73,10 @@ class MarketerResource extends Resource
                         Forms\Components\TextInput::make('bank_iban')
                             ->maxLength(255)
                             ->required(),
+                        Forms\Components\TextInput::make('vodaphone')
+                            ->label('Vodaphone Number')
+                            ->maxLength(255)
+                            ->required(),
                     ])->columns(2),
                 Forms\Components\Section::make()
                     ->schema([

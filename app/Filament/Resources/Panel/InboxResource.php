@@ -39,6 +39,11 @@ class InboxResource extends Resource
                     ->relationship('type', 'title_en')
                     ->preload()
                     ->live(),
+                Forms\Components\Select::make('checkOut_id')
+                    ->label('Check Out Type')
+                    ->relationship('checkOut', 'title')
+                    ->preload()
+                    ->live(),
                 Forms\Components\TextInput::make('vodaphone')
                     ->label('Vodaphone Number')
                     ->nullable(),

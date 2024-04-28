@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Panel\CheckoutResource\Pages;
 
 use App\Filament\Resources\Panel\CheckoutResource;
+use App\Models\Inbox;
 use App\Models\Introduce;
 use App\Models\User;
 use Filament\Actions;
@@ -12,6 +13,23 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateCheckout extends CreateRecord
 {
     protected static string $resource = CheckoutResource::class;
+
+
+
+    public function mount(): void
+    {
+        if ( request()->has('request_id') ) {
+            /** @var Inbox $request */
+            $request = Inbox::query()->find(request()->get('request_id'));
+            if ( $request ){
+                $this->form->fill([
+                    'user_id' => $request->user_id,
+                    'checkout_type_id' => $request->checkOut_id,
+                    'vodaphone' => $request->vodaphone,
+                ]);
+            }
+        }
+    }
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {

@@ -10,6 +10,9 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property int $user_id
  * @property int $type_id
+ * @property RequestType $type
+ * @property int $checkOut_id
+ * @property CheckoutType $checkOut
  * @property User $user
  * @property string $message
  * @property string $vodaphone
@@ -24,6 +27,7 @@ class Inbox extends Model
     protected $fillable = [
         'user_id',
         'type_id',
+        'checkOut_id',
         'seen',
         'message',
         'vodaphone',
@@ -43,5 +47,10 @@ class Inbox extends Model
     public function type(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(RequestType::class, 'type_id');
+    }
+
+    public function checkOut(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(CheckoutType::class, 'checkOut_id');
     }
 }
