@@ -30,5 +30,6 @@
     "not_set_yet": "Not Set Yet!",
     "set_empty_if_no_change_password": "Set empty if you do not need change password!",
     "username": "Username",
+    "Dashboard_Balance": "You have :price KD Balance",
     "New Introduce" : "Add new customer"
 }

@@ -22,9 +22,15 @@ class IntroduceResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-m-shopping-bag';
     protected static ?int $navigationSort = 1;
+
+
     public static function getLabel(): string
     {
         return __('Introduce');
+    }
+    public static function getNavigationLabel(): string
+    {
+        return __('Create New Introduce');
     }
     public static function getPluralLabel(): string
     {

@@ -7,6 +7,7 @@ use App\Filament\Marketer\Resources\IntroduceResource\Widgets\BlogPostsOverview;
 use App\Filament\Marketer\Resources\IntroduceResource\Widgets\LastIntroduceTable;
 use App\Filament\Marketer\Resources\IntroduceResource\Widgets\SendRequestButtons;
 use App\Filament\Marketer\Resources\IntroduceResource\Widgets\ShortLinkButtons;
+use App\Filament\Marketer\Resources\IntroduceResource\Widgets\TotalComission;
 use App\Filament\Pages\LoginAdmin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -44,10 +45,11 @@ class MarketerPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Marketer/Widgets'), for: 'App\\Filament\\Marketer\\Widgets')
             ->widgets([
-//                Widgets\AccountWidget::class,
+                Widgets\AccountWidget::class,
 //                Widgets\FilamentInfoWidget::class,
                 ShortLinkButtons::class,
                 SendRequestButtons::class,
+                TotalComission::class,
                 LastIntroduceTable::class
             ])
             ->middleware([
