@@ -3,6 +3,7 @@
 namespace App\Filament\Marketer\Resources\IntroduceResource\Widgets;
 
 use App\Filament\Marketer\Resources\IntroduceResource;
+use Filament\Facades\Filament;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
@@ -31,8 +32,9 @@ class LastIntroduceTable extends BaseWidget
     public function table(Table $table): Table
     {
         return $table
-            ->query(IntroduceResource::getEloquentQuery())
-            ->modelLabel(__('Last Introduce Table'))
+            ->query(IntroduceResource::getEloquentQuery()
+                ->where('user_id' , Filament::auth()->id())
+            )->modelLabel(__('Last Introduce Table'))
             ->defaultPaginationPageOption(5)
             ->defaultSort('created_at', 'desc')
             ->actions([
