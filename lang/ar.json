@@ -1,6 +1,6 @@
 {
     "Introduce" : "تقديم",
-    "Introduces" : "يقدم",
+    "Introduces" : "تقديم طلب تفصال",
     "Checkout": "الدفع",
     "Checkouts": "المدفوعات",
     "Profile": "الملف الشخصي",
@@ -12,7 +12,7 @@
     "admin_description" : "وصف المشرف",
     "id" : "الرقم التعريفي",
     "settled" : "تم التسوية",
-    "Create New Introduce" : "إنشاء تقديم جديد",
+    "Create New Introduce" : "تقديم طلب تفصال",
     "bank_name" : "اسم البنك",
     "bank_number" : "رقم البنك",
     "bank_iban" : "رقم الحساب البنكي الدولي (IBAN)",
@@ -39,5 +39,5 @@
     "Password Confirmation" : "تأكيد كلمة المرور",
     "Last Introduce Table" : "آخر تقديم الجدول",
     "Dashboard_Balance" : "لديك رصيد بقيمة :price دينار",
-    "New Introduce" : "إضافة عميل جديد"
+    "New Introduce" : "تقديم طلب تفصال"
 }

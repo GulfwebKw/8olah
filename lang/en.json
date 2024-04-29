@@ -1,6 +1,6 @@
 {
-    "introduce": "Introduce",
-    "introduces": "Introduces",
+    "introduce": "Customer",
+    "introduces": "Add New Customer",
     "Checkout": "Checkout",
     "Checkouts": "Checkouts",
     "Profile": "Profile",
@@ -12,7 +12,8 @@
     "admin_description": "Admin Description",
     "id": "ID",
     "settled": "Settled",
-    "create_new_introduce": "Create New Introduce",
+    "create_new_introduce": "Add New Customer",
+    "Create New Introduce" : "Add New Customer",
     "bank_name": "Bank Name",
     "bank_number": "Bank Number",
     "bank_iban": "Bank IBan",
@@ -31,5 +32,5 @@
     "set_empty_if_no_change_password": "Set empty if you do not need change password!",
     "username": "Username",
     "Dashboard_Balance": "You have :price KD Balance",
-    "New Introduce" : "Add new customer"
+    "New Introduce" : "Add New Customer"
 }
