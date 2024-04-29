@@ -62,6 +62,8 @@ class CheckoutResource extends Resource
                             ->content(fn ($record,Get $get) => $record?->bank_number ?? User::query()->find($get('user_id'))?->bank_number),
                         Forms\Components\Placeholder::make('bank_iban')
                             ->content(fn ($record,Get $get) => $record?->bank_iban ?? User::query()->find($get('user_id'))?->bank_iban),
+                        Forms\Components\Placeholder::make('user_vodaphone')
+                            ->content(fn ($record,Get $get) => $record?->vodaphone ?? User::query()->find($get('user_id'))?->vodaphone),
                     ])->columns(2),
                 Forms\Components\Section::make()
                     ->hidden(fn ($record,Get $get) => is_null($get('user_id')))

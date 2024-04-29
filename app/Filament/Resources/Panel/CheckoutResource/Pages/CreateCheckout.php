@@ -18,6 +18,7 @@ class CreateCheckout extends CreateRecord
 
     public function mount(): void
     {
+        parent::mount();
         if ( request()->has('request_id') ) {
             /** @var Inbox $request */
             $request = Inbox::query()->find(request()->get('request_id'));
