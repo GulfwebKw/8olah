@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Number;
 
 /**
  * @property int $id
@@ -83,5 +84,31 @@ class User extends Authenticatable implements FilamentUser,HasAvatar,HasName
     public function getFilamentName(): string
     {
         return  $this->is_admin ? $this->name : $this->company_name .' ('.$this->name.')';
+    }
+
+    public function getTotalJobAttribute()
+    {
+        $jobs = \App\Models\Introduce::query()
+//                ->where('is_earned' , false)
+                ->where('user_id' , $this->id)
+                ->sum('number_works_approved') ;
+        return Number::format($jobs * $this->commission_per_work ) .' KD ('. Number::format($jobs) .' Job)';
+    }
+
+    public function getTotalUnpaidJobAttribute()
+    {
+        $jobs = \App\Models\Introduce::query()
+                ->where('is_earned' , false)
+                ->where('user_id' , $this->id)
+                ->sum('number_works_approved') ;
+        return Number::format($jobs * $this->commission_per_work ) .' KD ('. Number::format($jobs) .' Job)';
+    }
+    public function getTotalPaidJobAttribute()
+    {
+        $jobs = \App\Models\Introduce::query()
+                ->where('is_earned' , true)
+                ->where('user_id' , $this->id)
+                ->sum('number_works_approved') ;
+        return Number::format($jobs * $this->commission_per_work ) .' KD ('. Number::format($jobs) .' Job)';
     }
 }

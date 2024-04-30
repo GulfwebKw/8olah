@@ -97,16 +97,27 @@ class MarketerResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')
+                    ->toggleable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->toggleable()
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('company_name')
+                    ->toggleable()
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('commission_per_work')
+                    ->toggleable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('total_job')
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('total_unpaid_job')
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('total_paid_job')
+                    ->toggleable(),
                 Tables\Columns\BooleanColumn::make('is_active')
+                    ->toggleable()
                     ->sortable(),
             ])
             ->filters([
